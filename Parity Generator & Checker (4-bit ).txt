@@ -1,0 +1,54 @@
+//Parity Generator & Checker (4-bit example)
+//code 
+module parity_gen(
+    input [3:0] data,
+    output parity
+);
+    // Even parity calculation
+    assign parity = data[0] ^ data[1] ^ data[2] ^ data[3];
+endmodule
+
+module parity_checker(
+    input [3:0] data,
+    input parity,
+    output error
+);
+    // Check if even parity is satisfied
+    assign error = (data[0] ^ data[1] ^ data[2] ^ data[3] ^ parity);
+endmodule
+
+
+//testbench
+`timescale 1ns/1ps
+
+module parity_tb;
+    reg [3:0] data;
+    wire parity;
+    wire error;
+
+    // Instantiate generator
+    parity_gen pg(.data(data), .parity(parity));
+
+    // Instantiate checker
+    parity_checker pc(.data(data), .parity(parity), .error(error));
+
+    initial begin
+        $dumpfile("parity.vcd"); // EPWave/GTKWave file
+        $dumpvars(0, parity_tb);
+
+        // Test all 4-bit values
+        for (integer i = 0; i < 16; i = i + 1) begin
+            data = i;
+            #10;
+            $display("Time: %0t | Data: %b | Parity: %b | Error: %b", $time, data, parity, error);
+        end
+
+        // Introduce error manually
+        data = 4'b1010; 
+        #10;
+        $display("Introducing error manually...");
+        $display("Time: %0t | Data: %b | Parity: %b | Error: %b", $time, data, parity, error);
+
+        $finish;
+    end
+endmodule
