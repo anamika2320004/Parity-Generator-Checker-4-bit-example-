@@ -28,10 +28,10 @@ This project demonstrates concepts of **error detection** and **combinational lo
 ## How to Run
 1. Open **EDA Playground**.
 2. Select **SystemVerilog / Icarus Verilog + GTKWave**.
-3. Copy **`parity_gen_checker.sv`** in the main code window.
-4. Copy **`parity_tb.sv`** in the testbench window.
+3. Copy **`code`** in the main code window.
+4. Copy **'testbench'** in the testbench window.
 5. Click **Run** to simulate.
-6. Open **`parity.vcd`** in GTKWave/EPWave to view signals:
+6. Open **`EPwave`** in GTKWave/EPWave to view signals:
    - `data[3:0]`: Input data
    - `parity`: Generated parity bit
    - `error`: Parity check result
